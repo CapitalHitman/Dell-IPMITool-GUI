@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Dell_IPMITool_GUI
+{
+    public partial class Connector : Form
+    {
+        
+        public Connector()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            AboutBox a = new AboutBox();
+            a.Show();
+        }
+
+        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
