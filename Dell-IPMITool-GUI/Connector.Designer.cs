@@ -40,6 +40,8 @@ namespace Dell_IPMITool_GUI
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.usernameText = new System.Windows.Forms.TextBox();
             this.passwordText = new System.Windows.Forms.TextBox();
+            this.connectButton = new System.Windows.Forms.Button();
+            this.closeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -116,6 +118,7 @@ namespace Dell_IPMITool_GUI
             this.passwordTextBox.Size = new System.Drawing.Size(294, 22);
             this.passwordTextBox.TabIndex = 5;
             this.passwordTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
+            this.passwordTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.passwordTextBox_KeyPress);
             // 
             // usernameText
             // 
@@ -137,11 +140,35 @@ namespace Dell_IPMITool_GUI
             this.passwordText.TabIndex = 7;
             this.passwordText.Text = "Password:";
             // 
+            // connectButton
+            // 
+            this.connectButton.Location = new System.Drawing.Point(225, 356);
+            this.connectButton.Name = "connectButton";
+            this.connectButton.Size = new System.Drawing.Size(130, 36);
+            this.connectButton.TabIndex = 8;
+            this.connectButton.Text = "Connect";
+            this.connectButton.UseVisualStyleBackColor = true;
+            this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
+            // 
+            // closeButton
+            // 
+            this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.closeButton.Location = new System.Drawing.Point(62, 356);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(114, 35);
+            this.closeButton.TabIndex = 9;
+            this.closeButton.Text = "Close";
+            this.closeButton.UseVisualStyleBackColor = true;
+            // 
             // Connector
             // 
+            this.AcceptButton = this.connectButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.closeButton;
             this.ClientSize = new System.Drawing.Size(421, 410);
+            this.Controls.Add(this.closeButton);
+            this.Controls.Add(this.connectButton);
             this.Controls.Add(this.passwordText);
             this.Controls.Add(this.usernameText);
             this.Controls.Add(this.passwordTextBox);
@@ -178,6 +205,8 @@ namespace Dell_IPMITool_GUI
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.TextBox usernameText;
         private System.Windows.Forms.TextBox passwordText;
+        private System.Windows.Forms.Button connectButton;
+        private System.Windows.Forms.Button closeButton;
     }
 }
 

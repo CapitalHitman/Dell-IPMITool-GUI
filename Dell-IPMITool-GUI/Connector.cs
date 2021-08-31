@@ -34,5 +34,15 @@ namespace Dell_IPMITool_GUI
         {
 
         }
+
+        private void connectButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void passwordTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
     }
 }
