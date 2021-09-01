@@ -35,6 +35,8 @@ namespace Dell_IPMITool_GUI
             this.browseButton = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.okButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,16 +87,40 @@ namespace Dell_IPMITool_GUI
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
+            // okButton
+            // 
+            this.okButton.Location = new System.Drawing.Point(515, 108);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(138, 37);
+            this.okButton.TabIndex = 4;
+            this.okButton.Text = "OK";
+            this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Location = new System.Drawing.Point(371, 108);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(138, 37);
+            this.cancelButton.TabIndex = 5;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            // 
             // directorySelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(692, 121);
+            this.ClientSize = new System.Drawing.Size(692, 157);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.okButton);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.browseButton);
             this.Controls.Add(this.directorySelectText);
             this.Controls.Add(this.pathBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "directorySelector";
             this.Text = "Directory Selection";
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
@@ -109,5 +135,7 @@ namespace Dell_IPMITool_GUI
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.TextBox textBox2;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.Button cancelButton;
     }
 }

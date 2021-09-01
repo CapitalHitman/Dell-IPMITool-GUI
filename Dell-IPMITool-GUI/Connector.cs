@@ -26,8 +26,8 @@ namespace Dell_IPMITool_GUI
 
         private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            AboutBox a = new AboutBox();
-            a.Show();
+            AboutBox about = new AboutBox();
+            about.Show();
         }
 
         private void passwordTextBox_TextChanged(object sender, EventArgs e)
@@ -43,6 +43,11 @@ namespace Dell_IPMITool_GUI
         private void passwordTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
 
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
