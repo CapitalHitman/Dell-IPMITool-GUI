@@ -28,7 +28,7 @@ namespace Dell_IPMITool_GUI
         private void browseButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog fileDlg = new OpenFileDialog();
-
+            fileDlg.Filter = "exe files (*.exe)|*.exe|All files (*.*)|*.*";
             if (fileDlg.ShowDialog() == DialogResult.OK)
             {
                 String path = fileDlg.FileName;
@@ -47,24 +47,32 @@ namespace Dell_IPMITool_GUI
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            String folderPath = Properties.Settings.Default.ipmiPath;
-            bool directory = File.Exists(folderPath);
-            Program.log("File path exists?: " + directory);
-            if (directory && folderPath.Contains("ipmitool.exe"))
+            String filePath = Properties.Settings.Default.ipmiPath;
+            bool file = File.Exists(filePath);
+            Program.log("File path exists?: " + file);
+            if (file && filePath.Contains("ipmitool.exe"))
             {
                 Program.log("File path has been evaluated as being valid and has been saved to persistent settings!");
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
+                this.Hide();
+                var Connector = new Connector();
+                Connector.Closed += (s, args) => this.Close();
+                Connector.Show();
             }
-            else if (!directory)
+            else if (!file)
             {
-                Program.errorPopup("The selected file does not exist!");
+                Program.errorPopup("The selected file does not exist! Please ensure that the file you selected is in a valid directory and is not access restricted.");
             }
-            else if (!folderPath.Contains("ipmitool.exe"))
+            else if (!filePath.Contains("ipmitool.exe"))
             {
-                Program.log("Selected file is not the ipmitool.exe");
+                Program.errorPopup("The selected file is not ipmitool.exe! Please select the correct EXE file.");
             }
 
+        }
+
+        private void directorySelector_FormClosing(object sender, FormClosingEventArgs e)
+        {
         }
     }
 }

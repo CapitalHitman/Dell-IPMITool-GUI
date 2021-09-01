@@ -122,7 +122,8 @@ namespace Dell_IPMITool_GUI
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "directorySelector";
-            this.Text = "Directory Selection";
+            this.Text = "File Selection";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.directorySelector_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

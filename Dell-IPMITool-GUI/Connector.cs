@@ -19,9 +19,9 @@ namespace Dell_IPMITool_GUI
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Connector_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
