@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Dell_IPMITool_GUI.Popups
 {
-    public partial class selectionInvalidPopup : Form
+    public partial class errorPopup : Form
     {
-        public selectionInvalidPopup()
+        public errorPopup()
         {
             InitializeComponent();
         }
@@ -30,7 +30,7 @@ namespace Dell_IPMITool_GUI.Popups
 
         private void okButton_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }

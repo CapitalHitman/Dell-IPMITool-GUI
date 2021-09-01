@@ -31,10 +31,11 @@ namespace Dell_IPMITool_GUI
 
             if (fileDlg.ShowDialog() == DialogResult.OK)
             {
-                pathBox.Text = fileDlg.FileName;
-                Debug.WriteLine(fileDlg.FileName);
-                
-                Properties.Settings.Default.ipmiPath = fileDlg.FileName;
+                String path = fileDlg.FileName;
+                pathBox.Text = path;
+                Program.log("Selected file path: " + path);
+
+                Properties.Settings.Default.ipmiPath = path;
 
             }
         }
@@ -48,23 +49,21 @@ namespace Dell_IPMITool_GUI
         {
             String folderPath = Properties.Settings.Default.ipmiPath;
             bool directory = File.Exists(folderPath);
-            Debug.WriteLine(directory);
-            if (directory &&  folderPath.Contains("ipmitool.exe")) {
-              Debug.WriteLine("Path Valid!");
+            Program.log("File path exists?: " + directory);
+            if (directory && folderPath.Contains("ipmitool.exe"))
+            {
+                Program.log("File path has been evaluated as being valid and has been saved to persistent settings!");
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
             }
             else if (!directory)
             {
-                selectionInvalidPopup errorPopup = new selectionInvalidPopup();
-                errorPopup.Show();
+                Program.errorPopup("The selected file does not exist!");
             }
             else if (!folderPath.Contains("ipmitool.exe"))
             {
-                selectionInvalidPopup errorPopup = new selectionInvalidPopup();
-                errorPopup.Show();
+                Program.log("Selected file is not the ipmitool.exe");
             }
-            Debug.WriteLine(folderPath);                
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
 
         }
     }
