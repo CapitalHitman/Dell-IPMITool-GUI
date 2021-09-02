@@ -60,7 +60,7 @@ namespace Dell_IPMITool_GUI
                 return;
             }
             string versionOutput = await Program.commandExecuteAsync("-V");
-            Program.log(versionOutput);
+            Program.log(versionOutput.Trim());
             if (file && filePath.Contains("ipmitool.exe") && versionOutput.Contains("ipmitool version 1.8.14.dell47"))
             {
                 Program.log("File path has been evaluated as being valid and has been saved to persistent settings!");

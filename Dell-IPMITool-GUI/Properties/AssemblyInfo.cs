@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Dell IPMITool GUI")]
-[assembly: AssemblyDescription("This application was created to make Dell Poweredge servers easier to manage via IPMI using Dells IPMITool Command Line Utility.                                                                                                     Settings free vector icons designed by Prosymbols https://www.flaticon.com/free-icon/settings_597292?term=gear")]
+[assembly: AssemblyDescription("This application was created to make Dell Poweredge servers easier to manage via IPMI using Dells IPMITool Command Line Utility. Settings free vector icons designed by Prosymbols https://www.flaticon.com/free-icon/settings_597292?term=gear. \n Server free vector icons designed by Elias Bikbulatov https://www.flaticon.com/free-icon/server_157359?related_id=157359")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Seth Fremeau 2021")]
 [assembly: AssemblyProduct("Dell IPMITool GUI")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.2.1")]
-[assembly: AssemblyFileVersion("0.2.1")]
+[assembly: AssemblyVersion("0.2.2")]
+[assembly: AssemblyFileVersion("0.2.2")]

@@ -156,5 +156,8 @@
   <ItemGroup>
     <None Include="settings128.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="server.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

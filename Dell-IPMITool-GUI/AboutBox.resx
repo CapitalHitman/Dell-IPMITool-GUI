@@ -117,4 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="textBoxDescription.Text" xml:space="preserve">
+    <value>This application was created to make Dell Poweredge servers easier to manage via IPMI using Dells IPMITool Command Line Utility. 
+
+Settings free vector icons designed by Prosymbols https://www.flaticon.com/free-icon/settings_597292?term=gear. 
+
+Server free vector icons designed by Elias Bikbulatov https://www.flaticon.com/free-icon/server_157359?related_id=157359</value>
+  </data>
 </root>

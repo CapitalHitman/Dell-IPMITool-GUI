@@ -14,9 +14,9 @@ namespace Dell_IPMITool_GUI
 {
     public partial class Connector : Form
     {
-        private string ipString;
-        private string username;
-        private string password;
+        private string quickConnectIPString;
+        private string quickConnectUsername;
+        private string quickConnectPassword;
 
         
 
@@ -49,46 +49,46 @@ namespace Dell_IPMITool_GUI
         //Temporarily store inputs once entered.
         private void ipTextBox_TextChanged(object sender, EventArgs e)
         {
-                    ipString = ipTextBox.Text;
+                    quickConnectIPString = ipQuickConnectTextBox.Text;
         }
 
         private void usernameTextBox_TextChanged(object sender, EventArgs e)
         {
-                    username = usernameTextBox.Text;
+                    quickConnectUsername = usernameQuickConnectTextBox.Text;
         }
         
         private void passwordTextBox_TextChanged(object sender, EventArgs e)
         {
-                    password = passwordTextBox.Text;
+                    quickConnectPassword = passwordQuickConnectTextBox.Text;
         }
 
         private void connectButton_Click(object sender, EventArgs e)
         {
             validationErrorBox.Text = "";
-            bool validIP = Program.validateIP(ipString);
+            bool validIP = Program.validateIP(quickConnectIPString);
             if (!validIP)
             {
                 validationErrorBox.AppendText("IP Address is invalid. \n");
             }
             //Password input validation
-            if (String.IsNullOrEmpty(password) || String.IsNullOrWhiteSpace(password))
+            if (String.IsNullOrEmpty(quickConnectPassword) || String.IsNullOrWhiteSpace(quickConnectPassword))
             {
                 validationErrorBox.AppendText("Password cannot be empty \n");
             }
 
             //Username input validation
-            if (String.IsNullOrEmpty(username) || String.IsNullOrWhiteSpace(username))
+            if (String.IsNullOrEmpty(quickConnectUsername) || String.IsNullOrWhiteSpace(quickConnectUsername))
             {
                 validationErrorBox.AppendText("Username cannot be empty \n");
             }
 
 
-            if (rememberLogin.Checked && validIP && !String.IsNullOrWhiteSpace(password) && !String.IsNullOrEmpty(password) && !String.IsNullOrEmpty(username) && !String.IsNullOrWhiteSpace(username))
+            if (rememberLogin.Checked && validIP && !String.IsNullOrWhiteSpace(quickConnectPassword) && !String.IsNullOrEmpty(quickConnectPassword) && !String.IsNullOrEmpty(quickConnectUsername) && !String.IsNullOrWhiteSpace(quickConnectUsername))
             {
                 Program.log("IP, Username, and Password were all evaluated as valid entries and have been saved");
-                Properties.Settings.Default.ipmiip = ipString;
-                Properties.Settings.Default.username = username;
-                Properties.Settings.Default.password = password;
+                Properties.Settings.Default.ipmiip = quickConnectIPString;
+                Properties.Settings.Default.username = quickConnectUsername;
+                Properties.Settings.Default.password = quickConnectPassword;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
             }
