@@ -37,9 +37,9 @@ namespace Dell_IPMITool_GUI.Popups
             // okButton
             // 
             this.okButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.okButton.Location = new System.Drawing.Point(122, 90);
+            this.okButton.Location = new System.Drawing.Point(174, 90);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(93, 35);
+            this.okButton.Size = new System.Drawing.Size(125, 35);
             this.okButton.TabIndex = 1;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
@@ -50,7 +50,7 @@ namespace Dell_IPMITool_GUI.Popups
             this.errorTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.errorTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.errorTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.errorTextBox.Location = new System.Drawing.Point(12, 12);
+            this.errorTextBox.Location = new System.Drawing.Point(79, 12);
             this.errorTextBox.Name = "errorTextBox";
             this.errorTextBox.ReadOnly = true;
             this.errorTextBox.Size = new System.Drawing.Size(332, 55);
@@ -63,7 +63,7 @@ namespace Dell_IPMITool_GUI.Popups
             this.AcceptButton = this.okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(356, 137);
+            this.ClientSize = new System.Drawing.Size(490, 137);
             this.Controls.Add(this.errorTextBox);
             this.Controls.Add(this.okButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;

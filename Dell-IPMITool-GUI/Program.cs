@@ -6,6 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Net;
+using CliWrap;
+using CliWrap.Buffered;
 
 namespace Dell_IPMITool_GUI
 {
@@ -18,7 +21,7 @@ namespace Dell_IPMITool_GUI
             File.WriteAllText("log.txt", String.Empty);
             log("Log cleared on application start");
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false); 
+            Application.SetCompatibleTextRenderingDefault(false);
             String ipmiPath = Properties.Settings.Default.ipmiPath;
             Debug.WriteLine(Properties.Settings.Default.ipmiPath);
 
@@ -35,7 +38,7 @@ namespace Dell_IPMITool_GUI
             {
                 Application.Run(new Connector());
             }
-                
+
         }
 
         public static void log(Object loggedObject)
@@ -59,7 +62,7 @@ namespace Dell_IPMITool_GUI
             errorPopup.errorTextBox.Text = errorObject.ToString();
             Size errorTextSize = TextRenderer.MeasureText(errorPopup.errorTextBox.Text, errorPopup.errorTextBox.Font);
             int lineCount = errorPopup.errorTextBox.GetLineFromCharIndex(errorPopup.errorTextBox.Text.Length - 1) + 1;
-            errorPopup.errorTextBox.Height = errorTextSize.Height*lineCount;
+            errorPopup.errorTextBox.Height = errorTextSize.Height * lineCount;
             Size initialSize = errorPopup.Size;
             errorPopup.Size = new Size(initialSize.Width, initialSize.Height + errorPopup.errorTextBox.Height - 20);
             errorPopup.errorTextBox.SelectionAlignment = HorizontalAlignment.Center;
@@ -67,5 +70,59 @@ namespace Dell_IPMITool_GUI
             errorPopup.Show();
         }
 
+        public static void validateIP(String ipString)
+        {
+            //IP address input validation
+            IPAddress ip = null;
+
+            if(String.IsNullOrWhiteSpace(ipString) || String.Equals(ipString,  ""))
+            {
+                errorPopup("IP field cannot be empty");
+                return;
+            }
+            string[] splitIP = ipString.Split('.');
+            if (splitIP.Length != 4  || !IPAddress.TryParse(ipString, out ip))
+            {
+                Program.errorPopup("IP Address is not valid. Please enter a valid IP Address");
+            }
+            if (ip == null)
+            {
+                Program.log("Entered IP Address was parsed as: NULL");
+            }
+            else if (ip != null)
+            {
+                Program.log("Entered IP Address was parsed as: " + ip);
+            }
+        }
+
+        public static void validateUsername(String username)
+        {
+            //Username input validation
+            if (String.IsNullOrEmpty(username) || String.IsNullOrWhiteSpace(username))
+            {
+                errorPopup("Username is blank or null. Please enter a username.");
+            }
+
+        }
+
+        public static void validatePassword(String password)
+        {
+            //Username input validation
+            if (String.IsNullOrEmpty(password) || String.IsNullOrWhiteSpace(password))
+            {
+                errorPopup("Password is blank or null. Please enter a password.");
+            }
+
+        }
+
+        public static async Task<string> commandExecuteAsync(String command)
+        {
+            string workingDir = Directory.GetCurrentDirectory();
+            var result = await Cli.Wrap(Properties.Settings.Default.ipmiPath)
+                .WithArguments(command)
+                .WithWorkingDirectory(workingDir)
+                .ExecuteBufferedAsync();
+            return result.StandardOutput;
+        }
     }
 }

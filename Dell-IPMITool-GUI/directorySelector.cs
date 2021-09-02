@@ -27,8 +27,12 @@ namespace Dell_IPMITool_GUI
 
         private void browseButton_Click(object sender, EventArgs e)
         {
+            //Opens file selection dialog
+
             OpenFileDialog fileDlg = new OpenFileDialog();
             fileDlg.Filter = "exe files (*.exe)|*.exe|All files (*.*)|*.*";
+
+            //If file selection dialog returns OK, writes (but does not yet save) the file path to an application setting ipmiPath
             if (fileDlg.ShowDialog() == DialogResult.OK)
             {
                 String path = fileDlg.FileName;
@@ -45,16 +49,23 @@ namespace Dell_IPMITool_GUI
             Application.Exit();
         }
 
-        private void okButton_Click(object sender, EventArgs e)
+        private async void okButton_Click(object sender, EventArgs e)
         {
             String filePath = Properties.Settings.Default.ipmiPath;
             bool file = File.Exists(filePath);
             Program.log("File path exists?: " + file);
-            if (file && filePath.Contains("ipmitool.exe"))
+            if (filePath == null || filePath == "")
+            {
+                Program.errorPopup("Please select a file path.");
+                return;
+            }
+            string versionOutput = await Program.commandExecuteAsync("-V");
+            Program.log(versionOutput);
+            if (file && filePath.Contains("ipmitool.exe") && versionOutput.Contains("ipmitool version 1.8.14.dell47"))
             {
                 Program.log("File path has been evaluated as being valid and has been saved to persistent settings!");
                 Properties.Settings.Default.Save();
-                Properties.Settings.Default.Reload();
+                Properties.Settings.Default.Reload(); 
                 this.Hide();
                 var Connector = new Connector();
                 Connector.Closed += (s, args) => this.Close();
@@ -67,6 +78,10 @@ namespace Dell_IPMITool_GUI
             else if (!filePath.Contains("ipmitool.exe"))
             {
                 Program.errorPopup("The selected file is not ipmitool.exe! Please select the correct EXE file.");
+            }
+            else if (!versionOutput.Contains("ipmitool version 1.8.14.dell47"))
+            {
+                Program.errorPopup("The installed version of Dell IPMITool is old! Please update to the latest version 1.8.14.dell47. Installed Version: " + versionOutput);
             }
 
         }

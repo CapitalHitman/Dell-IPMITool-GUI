@@ -8,12 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Dell_IPMITool_GUI
 {
     public partial class Connector : Form
     {
+        private string ipString;
+        private string username;
+        private string password;
+
+        private bool inputRemembered;
         
+
         public Connector()
         {
             InitializeComponent();
@@ -30,16 +37,6 @@ namespace Dell_IPMITool_GUI
             about.Show();
         }
 
-        private void passwordTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void connectButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void passwordTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
 
@@ -48,6 +45,36 @@ namespace Dell_IPMITool_GUI
         private void closeButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        //Temporarily store inputs once entered.
+        private void ipTextBox_TextChanged(object sender, EventArgs e)
+        {
+                    ipString = ipTextBox.Text;
+        }
+
+        private void usernameTextBox_TextChanged(object sender, EventArgs e)
+        {
+                    username = usernameTextBox.Text;
+        }
+        
+        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        {
+                    password = passwordTextBox.Text;
+        }
+
+        private void connectButton_Click(object sender, EventArgs e)
+        {
+            Program.validateIP(ipString);
+            Program.validateUsername(username);
+            Program.validatePassword(password);
+
+
+
+            if (rememberLogin.Checked)
+            {
+                
+            }
         }
     }
 }
