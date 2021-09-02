@@ -18,7 +18,6 @@ namespace Dell_IPMITool_GUI
         private string username;
         private string password;
 
-        private bool inputRemembered;
         
 
         public Connector()
@@ -65,16 +64,39 @@ namespace Dell_IPMITool_GUI
 
         private void connectButton_Click(object sender, EventArgs e)
         {
-            Program.validateIP(ipString);
-            Program.validateUsername(username);
-            Program.validatePassword(password);
-
-
-
-            if (rememberLogin.Checked)
+            validationErrorBox.Text = "";
+            bool validIP = Program.validateIP(ipString);
+            if (!validIP)
             {
-                
+                validationErrorBox.AppendText("IP Address is invalid. \n");
             }
+            //Password input validation
+            if (String.IsNullOrEmpty(password) || String.IsNullOrWhiteSpace(password))
+            {
+                validationErrorBox.AppendText("Password cannot be empty \n");
+            }
+
+            //Username input validation
+            if (String.IsNullOrEmpty(username) || String.IsNullOrWhiteSpace(username))
+            {
+                validationErrorBox.AppendText("Username cannot be empty \n");
+            }
+
+
+            if (rememberLogin.Checked && validIP && !String.IsNullOrWhiteSpace(password) && !String.IsNullOrEmpty(password) && !String.IsNullOrEmpty(username) && !String.IsNullOrWhiteSpace(username))
+            {
+                Program.log("IP, Username, and Password were all evaluated as valid entries and have been saved");
+                Properties.Settings.Default.ipmiip = ipString;
+                Properties.Settings.Default.username = username;
+                Properties.Settings.Default.password = password;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+        }
+
+        private void newServerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

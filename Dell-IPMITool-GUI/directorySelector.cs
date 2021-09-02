@@ -70,18 +70,22 @@ namespace Dell_IPMITool_GUI
                 var Connector = new Connector();
                 Connector.Closed += (s, args) => this.Close();
                 Connector.Show();
+                return;
             }
             else if (!file)
             {
                 Program.errorPopup("The selected file does not exist! Please ensure that the file you selected is in a valid directory and is not access restricted.");
+                return;
             }
             else if (!filePath.Contains("ipmitool.exe"))
             {
                 Program.errorPopup("The selected file is not ipmitool.exe! Please select the correct EXE file.");
+                return;
             }
             else if (!versionOutput.Contains("ipmitool version 1.8.14.dell47"))
             {
                 Program.errorPopup("The installed version of Dell IPMITool is old! Please update to the latest version 1.8.14.dell47. Installed Version: " + versionOutput);
+                return;
             }
 
         }

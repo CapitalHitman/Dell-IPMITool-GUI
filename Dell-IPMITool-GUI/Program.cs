@@ -25,8 +25,11 @@ namespace Dell_IPMITool_GUI
             String ipmiPath = Properties.Settings.Default.ipmiPath;
             Debug.WriteLine(Properties.Settings.Default.ipmiPath);
 
-            /// Used to sanitize ipmiPath variable while testing(resets it to null).
+            /// Used to sanitize application setting variables while testing(resets it to null).
             Properties.Settings.Default.ipmiPath = String.Empty;
+            Properties.Settings.Default.ipmiip = String.Empty;
+            Properties.Settings.Default.username = String.Empty;
+            Properties.Settings.Default.password = String.Empty;
             Properties.Settings.Default.Save();
 
             /// Checks to see if the user has selected the file path for their ipmitool.exe. If they have not it presents them with the file path selector. If they have it presents them with the connector.
@@ -47,12 +50,14 @@ namespace Dell_IPMITool_GUI
             {
                 AppendLog(loggedObject, writer);
             }
+            return;
         }
 
         public static void AppendLog(Object loggedObject, TextWriter writer)
         {
             writer.Write(DateTime.Now.ToString("MM/dd/yyyy h:mm:ss:fff tt: ") + loggedObject + System.Environment.NewLine);
             Debug.WriteLine(loggedObject);
+            return;
         }
 
         ///Used to create a dynamic error popup.
@@ -68,51 +73,36 @@ namespace Dell_IPMITool_GUI
             errorPopup.errorTextBox.SelectionAlignment = HorizontalAlignment.Center;
             Program.log(errorPopup.errorTextBox.Text);
             errorPopup.Show();
+            return;
         }
 
-        public static void validateIP(String ipString)
+        public static bool validateIP(String ipString)
         {
             //IP address input validation
             IPAddress ip = null;
 
-            if(String.IsNullOrWhiteSpace(ipString) || String.Equals(ipString,  ""))
+            if(String.IsNullOrWhiteSpace(ipString) || ipString == "")
             {
-                errorPopup("IP field cannot be empty");
-                return;
+
+                return false;
             }
             string[] splitIP = ipString.Split('.');
             if (splitIP.Length != 4  || !IPAddress.TryParse(ipString, out ip))
             {
-                Program.errorPopup("IP Address is not valid. Please enter a valid IP Address");
+                errorPopup("IP Address is not valid. Please enter a valid IP Address");
+                return false;
             }
             if (ip == null)
             {
                 Program.log("Entered IP Address was parsed as: NULL");
+                return false;
             }
             else if (ip != null)
             {
                 Program.log("Entered IP Address was parsed as: " + ip);
+                return true;
             }
-        }
-
-        public static void validateUsername(String username)
-        {
-            //Username input validation
-            if (String.IsNullOrEmpty(username) || String.IsNullOrWhiteSpace(username))
-            {
-                errorPopup("Username is blank or null. Please enter a username.");
-            }
-
-        }
-
-        public static void validatePassword(String password)
-        {
-            //Username input validation
-            if (String.IsNullOrEmpty(password) || String.IsNullOrWhiteSpace(password))
-            {
-                errorPopup("Password is blank or null. Please enter a password.");
-            }
-
+            return false;
         }
 
         public static async Task<string> commandExecuteAsync(String command)

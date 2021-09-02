@@ -90,6 +90,12 @@
     <Compile Include="directorySelector.Designer.cs">
       <DependentUpon>directorySelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainPage.Designer.cs">
+      <DependentUpon>MainPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="license.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="license.resx">
       <DependentUpon>license.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainPage.resx">
+      <DependentUpon>MainPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Popups\errorPopup.resx">
       <DependentUpon>errorPopup.cs</DependentUpon>
