@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace Dell_IPMITool_GUI
 {
@@ -18,16 +19,18 @@ namespace Dell_IPMITool_GUI
         private string quickConnectUsername;
         private string quickConnectPassword;
 
-        
+        [DllImport("user32")]
+        private static extern bool HideCaret(IntPtr hWnd);
 
         public Connector()
         {
             InitializeComponent();
+            
         }
 
         private void Connector_Load(object sender, EventArgs e)
         {
-            
+            quickConnectTextbox.GotFocus += (s1, e1) => { HideCaret(quickConnectTextbox.Handle); };
         }
 
         private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -70,16 +73,17 @@ namespace Dell_IPMITool_GUI
             {
                 validationErrorBox.AppendText("IP Address is invalid. \n");
             }
-            //Password input validation
-            if (String.IsNullOrEmpty(quickConnectPassword) || String.IsNullOrWhiteSpace(quickConnectPassword))
-            {
-                validationErrorBox.AppendText("Password cannot be empty \n");
-            }
 
             //Username input validation
             if (String.IsNullOrEmpty(quickConnectUsername) || String.IsNullOrWhiteSpace(quickConnectUsername))
             {
-                validationErrorBox.AppendText("Username cannot be empty \n");
+                validationErrorBox.AppendText("Username cannot be empty. \n");
+            }
+
+            //Password input validation
+            if (String.IsNullOrEmpty(quickConnectPassword) || String.IsNullOrWhiteSpace(quickConnectPassword))
+            {
+                validationErrorBox.AppendText("Password cannot be empty. \n");
             }
 
 
