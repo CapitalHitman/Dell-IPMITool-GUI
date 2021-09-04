@@ -14,7 +14,7 @@ namespace Dell_IPMITool_GUI
 {
     static class Program
     {
-
+        
 
         [STAThread]
         static void Main()

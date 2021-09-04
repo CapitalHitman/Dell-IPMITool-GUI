@@ -1,4 +1,6 @@
 ﻿
+using System.Collections;
+
 namespace Dell_IPMITool_GUI
 {
     partial class Connector
@@ -46,29 +48,14 @@ namespace Dell_IPMITool_GUI
             this.quickConnectTextbox = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-
-            this.tabPage1 = new TabPageInst(0);
-            
-            this.tabPage1Tabby = this.tabPage1.GetTabPage();
-/*            this.tabPage1 = new System.Windows.Forms.TabPage();
-*/
-
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.validationErrorBox = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-/*            this.nameTextBox = new System.Windows.Forms.TextBox();
-            this.nameText = new System.Windows.Forms.TextBox();
-            this.nameTextError = new System.Windows.Forms.TextBox();
-            this.ipText = new System.Windows.Forms.TextBox();
-            this.ipTextBox = new System.Windows.Forms.TextBox();
-            this.ipTextError = new System.Windows.Forms.TextBox();*/
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1Tabby.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -237,42 +224,14 @@ namespace Dell_IPMITool_GUI
             this.splitContainer1.Size = new System.Drawing.Size(981, 445);
             this.splitContainer1.SplitterDistance = 629;
             this.splitContainer1.TabIndex = 13;
-
-
-
-
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1Tabby);
             this.tabControl1.Location = new System.Drawing.Point(0, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(631, 442);
             this.tabControl1.TabIndex = 0;
-            /*
-             
-             for (int i; i<this.TabArray.length;i++) {
-                this.tabControl1.Controls.Add(this.TabArray[i].GetTabPage());
-            }
-             */
-
-/*            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.ipTextError);
-            this.tabPage1.Controls.Add(this.ipTextBox);
-            this.tabPage1.Controls.Add(this.ipText);
-            this.tabPage1.Controls.Add(this.nameTextError);
-            this.tabPage1.Controls.Add(this.nameText);
-            this.tabPage1.Controls.Add(this.nameTextBox);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(623, 413);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Server #1";
-            this.tabPage1.UseVisualStyleBackColor = true;*/
             // 
             // pictureBox2
             // 
@@ -309,70 +268,6 @@ namespace Dell_IPMITool_GUI
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
-/*            // 
-            // nameTextBox
-            // 
-            this.nameTextBox.Location = new System.Drawing.Point(8, 28);
-            this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(245, 22);
-            this.nameTextBox.TabIndex = 0;
-            // 
-            // nameText
-            // 
-            this.nameText.BackColor = System.Drawing.SystemColors.Window;
-            this.nameText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.nameText.Cursor = System.Windows.Forms.Cursors.Default;
-            this.nameText.Location = new System.Drawing.Point(8, 6);
-            this.nameText.Name = "nameText";
-            this.nameText.ReadOnly = true;
-            this.nameText.Size = new System.Drawing.Size(100, 15);
-            this.nameText.TabIndex = 1;
-            this.nameText.TabStop = false;
-            this.nameText.Text = "Name:";
-            // 
-            // nameTextError
-            // 
-            this.nameTextError.BackColor = System.Drawing.SystemColors.Window;
-            this.nameTextError.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.nameTextError.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.nameTextError.Location = new System.Drawing.Point(9, 56);
-            this.nameTextError.Name = "nameTextError";
-            this.nameTextError.ReadOnly = true;
-            this.nameTextError.Size = new System.Drawing.Size(244, 15);
-            this.nameTextError.TabIndex = 2;
-            this.nameTextError.TabStop = false;
-            // 
-            // ipText
-            // 
-            this.ipText.BackColor = System.Drawing.SystemColors.Window;
-            this.ipText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ipText.Cursor = System.Windows.Forms.Cursors.Default;
-            this.ipText.Location = new System.Drawing.Point(9, 81);
-            this.ipText.Name = "ipText";
-            this.ipText.ReadOnly = true;
-            this.ipText.Size = new System.Drawing.Size(100, 15);
-            this.ipText.TabIndex = 3;
-            this.ipText.TabStop = false;
-            this.ipText.Text = "IP Address:";
-            // 
-            // ipTextBox
-            // 
-            this.ipTextBox.Location = new System.Drawing.Point(9, 103);
-            this.ipTextBox.Name = "ipTextBox";
-            this.ipTextBox.Size = new System.Drawing.Size(244, 22);
-            this.ipTextBox.TabIndex = 4;
-            // 
-            // ipTextError
-            // 
-            this.ipTextError.BackColor = System.Drawing.SystemColors.Window;
-            this.ipTextError.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ipTextError.Cursor = System.Windows.Forms.Cursors.Default;
-            this.ipTextError.Location = new System.Drawing.Point(9, 132);
-            this.ipTextError.Name = "ipTextError";
-            this.ipTextError.ReadOnly = true;
-            this.ipTextError.Size = new System.Drawing.Size(244, 15);
-            this.ipTextError.TabIndex = 5;
-            this.ipTextError.TabStop = false;*/
             // 
             // Connector
             // 
@@ -390,6 +285,7 @@ namespace Dell_IPMITool_GUI
             this.MaximizeBox = false;
             this.Name = "Connector";
             this.Text = "Dell IPMITool GUI";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Connector_FormClosing);
             this.Load += new System.EventHandler(this.Connector_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -398,14 +294,6 @@ namespace Dell_IPMITool_GUI
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            /*            this.tabPage1.ResumeLayout(false);
-                        this.tabPage1.PerformLayout();*/
-
-            this.tabPage1Tabby.ResumeLayout(false);
-            this.tabPage1Tabby.PerformLayout();
-
-
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -414,7 +302,6 @@ namespace Dell_IPMITool_GUI
         }
 
         #endregion
-
         private System.Windows.Forms.TextBox ipQuickConnectTextBox;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -436,14 +323,17 @@ namespace Dell_IPMITool_GUI
 /*        private System.Windows.Forms.TabPage tabPage1;*/
         private System.Windows.Forms.RichTextBox validationErrorBox;
         /*       private System.Windows.Forms.TextBox nameText;
-               private System.Windows.Forms.TextBox nameTextBox;
-               private System.Windows.Forms.TextBox nameTextError;
-               private System.Windows.Forms.TextBox ipText;
-               private System.Windows.Forms.TextBox ipTextError;
-               private System.Windows.Forms.TextBox ipTextBox;*/
+private System.Windows.Forms.TextBox nameTextBox;
+private System.Windows.Forms.TextBox nameTextError;
+private System.Windows.Forms.TextBox ipText;
+private System.Windows.Forms.TextBox ipTextError;
+private System.Windows.Forms.TextBox ipTextBox;*/
+        /*
+                private TabPageInst tabPage1;
+                private TabPageInst tabPage2;*/
 
-        private TabPageInst tabPage1;
-        private System.Windows.Forms.TabPage tabPage1Tabby;
+
+
 
     }
 }

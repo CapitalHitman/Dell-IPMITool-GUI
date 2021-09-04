@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Collections;
 
 namespace Dell_IPMITool_GUI
 {
     public partial class Connector : Form
     {
+        public ArrayList tabInstances = new ArrayList();
         private string quickConnectIPString;
         private string quickConnectUsername;
         private string quickConnectPassword;
@@ -25,11 +27,23 @@ namespace Dell_IPMITool_GUI
         public Connector()
         {
             InitializeComponent();
-            
+            TabPageInst tabPage1 = new TabPageInst(tabInstances.Count);
+            tabInstances.Add(tabPage1);
+            this.tabControl1.Controls.Add(tabPage1);
+
+
         }
 
         private void Connector_Load(object sender, EventArgs e)
         {
+            foreach(TabPageInst t in tabInstances)
+            {
+                Debug.WriteLine(t);
+            }
+            Properties.Settings.Default.tabs = tabInstances;
+
+            // tabInstances = Properties.Settings.Default.tabs;
+            //Debug.WriteLine(Properties.Settings.Default.tabs.ToString());
             quickConnectTextbox.GotFocus += (s1, e1) => { HideCaret(quickConnectTextbox.Handle); };
         }
 
@@ -100,7 +114,17 @@ namespace Dell_IPMITool_GUI
 
         private void newServerToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            TabPageInst t = new TabPageInst(tabInstances.Count);
+            tabInstances.Add(t);
+            this.tabControl1.Controls.Add(t);
+            this.Update();
+        }
 
+        private void Connector_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.tabs = tabInstances;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
     }
 }

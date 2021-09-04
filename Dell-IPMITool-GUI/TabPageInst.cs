@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Dell_IPMITool_GUI
 {
-    class TabPageInst
+    public class TabPageInst : System.Windows.Forms.TabPage
     {
         public TabPageInst(int index)
         {
-            this.tabPage = new System.Windows.Forms.TabPage();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.nameText = new System.Windows.Forms.TextBox();
             this.nameTextError = new System.Windows.Forms.TextBox();
@@ -20,19 +19,19 @@ namespace Dell_IPMITool_GUI
 
 
 
-            this.tabPage.Controls.Add(this.ipTextError);
-            this.tabPage.Controls.Add(this.ipTextBox);
-            this.tabPage.Controls.Add(this.ipText);
-            this.tabPage.Controls.Add(this.nameTextError);
-            this.tabPage.Controls.Add(this.nameText);
-            this.tabPage.Controls.Add(this.nameTextBox);
-            this.tabPage.Location = new System.Drawing.Point(4, 25);
-            this.tabPage.Name = "tabPage" + (index + 1);
-            this.tabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage.Size = new System.Drawing.Size(623, 413);
-            this.tabPage.TabIndex = index;
-            this.tabPage.Text = "Server #" + (index + 1);
-            this.tabPage.UseVisualStyleBackColor = true;
+            this.Controls.Add(this.ipTextError);
+            this.Controls.Add(this.ipTextBox);
+            this.Controls.Add(this.ipText);
+            this.Controls.Add(this.nameTextError);
+            this.Controls.Add(this.nameText);
+            this.Controls.Add(this.nameTextBox);
+            this.Location = new System.Drawing.Point(4, 25);
+            this.Name = "tabPage" + (index + 1);
+            this.Padding = new System.Windows.Forms.Padding(3);
+            this.Size = new System.Drawing.Size(623, 413);
+            this.TabIndex = index;
+            this.Text = "Server #" + (index + 1);
+            this.UseVisualStyleBackColor = true;
 
 
             // 
@@ -104,16 +103,14 @@ namespace Dell_IPMITool_GUI
 
         public void changeTabText(string newName)
         {
-            this.tabPage.Text = newName;
+            this.Text = newName;
 
         }
 
         public System.Windows.Forms.TabPage GetTabPage() {
-            return this.tabPage;
+            return this;
         }
-
-        private System.Windows.Forms.TabPage tabPage;
-        private System.Windows.Forms.TextBox nameText;
+        public System.Windows.Forms.TextBox nameText;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.TextBox nameTextError;
         private System.Windows.Forms.TextBox ipText;
