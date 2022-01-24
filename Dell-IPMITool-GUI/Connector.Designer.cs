@@ -51,6 +51,7 @@ namespace Dell_IPMITool_GUI
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.validationErrorBox = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.saveTabsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -91,7 +92,8 @@ namespace Dell_IPMITool_GUI
             // addNewServerToolStripMenuItem
             // 
             this.addNewServerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newServerToolStripMenuItem});
+            this.newServerToolStripMenuItem,
+            this.saveTabsToolStripMenuItem});
             this.addNewServerToolStripMenuItem.Name = "addNewServerToolStripMenuItem";
             this.addNewServerToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.addNewServerToolStripMenuItem.Text = "File";
@@ -100,7 +102,7 @@ namespace Dell_IPMITool_GUI
             // 
             this.newServerToolStripMenuItem.Image = global::Dell_IPMITool_GUI.Properties.Resources.server1;
             this.newServerToolStripMenuItem.Name = "newServerToolStripMenuItem";
-            this.newServerToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.newServerToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.newServerToolStripMenuItem.Text = "New Server";
             this.newServerToolStripMenuItem.Click += new System.EventHandler(this.newServerToolStripMenuItem_Click);
             // 
@@ -156,7 +158,7 @@ namespace Dell_IPMITool_GUI
             // 
             // quickConnectConnectButton
             // 
-            this.quickConnectConnectButton.Location = new System.Drawing.Point(179, 321);
+            this.quickConnectConnectButton.Location = new System.Drawing.Point(179, 398);
             this.quickConnectConnectButton.Name = "quickConnectConnectButton";
             this.quickConnectConnectButton.Size = new System.Drawing.Size(138, 35);
             this.quickConnectConnectButton.TabIndex = 8;
@@ -167,7 +169,7 @@ namespace Dell_IPMITool_GUI
             // quickConnectCloseButton
             // 
             this.quickConnectCloseButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.quickConnectCloseButton.Location = new System.Drawing.Point(23, 321);
+            this.quickConnectCloseButton.Location = new System.Drawing.Point(23, 398);
             this.quickConnectCloseButton.Name = "quickConnectCloseButton";
             this.quickConnectCloseButton.Size = new System.Drawing.Size(138, 35);
             this.quickConnectCloseButton.TabIndex = 9;
@@ -249,7 +251,7 @@ namespace Dell_IPMITool_GUI
             this.validationErrorBox.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.validationErrorBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.validationErrorBox.ForeColor = System.Drawing.Color.Red;
-            this.validationErrorBox.Location = new System.Drawing.Point(23, 362);
+            this.validationErrorBox.Location = new System.Drawing.Point(23, 321);
             this.validationErrorBox.Name = "validationErrorBox";
             this.validationErrorBox.ReadOnly = true;
             this.validationErrorBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -269,9 +271,14 @@ namespace Dell_IPMITool_GUI
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
+            // saveTabsToolStripMenuItem
+            // 
+            this.saveTabsToolStripMenuItem.Name = "saveTabsToolStripMenuItem";
+            this.saveTabsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveTabsToolStripMenuItem.Text = "Save Tabs";
+            // 
             // Connector
             // 
-            this.AcceptButton = this.quickConnectConnectButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.quickConnectCloseButton;
@@ -320,21 +327,8 @@ namespace Dell_IPMITool_GUI
         private System.Windows.Forms.TextBox quickConnectTextbox;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TabControl tabControl1;
-/*        private System.Windows.Forms.TabPage tabPage1;*/
         private System.Windows.Forms.RichTextBox validationErrorBox;
-        /*       private System.Windows.Forms.TextBox nameText;
-private System.Windows.Forms.TextBox nameTextBox;
-private System.Windows.Forms.TextBox nameTextError;
-private System.Windows.Forms.TextBox ipText;
-private System.Windows.Forms.TextBox ipTextError;
-private System.Windows.Forms.TextBox ipTextBox;*/
-        /*
-                private TabPageInst tabPage1;
-                private TabPageInst tabPage2;*/
-
-
-
-
+        private System.Windows.Forms.ToolStripMenuItem saveTabsToolStripMenuItem;
     }
 }
 

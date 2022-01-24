@@ -10,40 +10,48 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections;
 
 namespace Dell_IPMITool_GUI
 {
     public partial class Connector : Form
     {
-        public ArrayList tabInstances = new ArrayList();
+        public static int tabNumber = 0;
         private string quickConnectIPString;
         private string quickConnectUsername;
         private string quickConnectPassword;
+        public static ArrayList tabGUID = new ArrayList();
 
         [DllImport("user32")]
         private static extern bool HideCaret(IntPtr hWnd);
 
         public Connector()
         {
+
+
+            
             InitializeComponent();
-            TabPageInst tabPage1 = new TabPageInst(tabInstances.Count);
-            tabInstances.Add(tabPage1);
-            this.tabControl1.Controls.Add(tabPage1);
-
-
         }
 
         private void Connector_Load(object sender, EventArgs e)
         {
-            foreach(TabPageInst t in tabInstances)
-            {
-                Debug.WriteLine(t);
-            }
-            Properties.Settings.Default.tabs = tabInstances;
 
-            // tabInstances = Properties.Settings.Default.tabs;
-            //Debug.WriteLine(Properties.Settings.Default.tabs.ToString());
+            bool tabsDirExists = Directory.Exists(Application.StartupPath + @"\tabs\");
+            if (!tabsDirExists)
+            {
+                Directory.CreateDirectory(Application.StartupPath + @"\tabs\");
+            }
+            string[] GUIDList = Directory.GetFiles(Application.StartupPath + @"\tabs\");
+            foreach (string tabGUID in GUIDList)
+            {
+                string GUIDPath = Path.Combine(Path.GetFileNameWithoutExtension(tabGUID));
+                Program.log(GUIDPath);
+                Guid processedGUID = Guid.Parse(GUIDPath);
+                Program.log(GUIDPath);
+                NewServerPage(processedGUID);
+            }
+            NewServerPage();
             quickConnectTextbox.GotFocus += (s1, e1) => { HideCaret(quickConnectTextbox.Handle); };
         }
 
@@ -60,7 +68,7 @@ namespace Dell_IPMITool_GUI
 
         private void closeButton_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
         //Temporarily store inputs once entered.
@@ -114,17 +122,31 @@ namespace Dell_IPMITool_GUI
 
         private void newServerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TabPageInst t = new TabPageInst(tabInstances.Count);
-            tabInstances.Add(t);
-            this.tabControl1.Controls.Add(t);
-            this.Update();
+            NewServerPage();
         }
 
         private void Connector_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.tabs = tabInstances;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+        }
+
+        //Create tabs
+        public void NewServerPage(Guid GUID)
+        {
+            tabPageUserControl userControl = new tabPageUserControl(GUID);
+            TabPage page = new TabPage("Server #" + tabNumber);
+            userControl.Dock = DockStyle.Fill;
+            page.Controls.Add(userControl);
+            this.tabControl1.Controls.Add(page);
+            this.Update();
+        }
+        public void NewServerPage()
+        {
+            tabPageUserControl userControl = new tabPageUserControl();
+            TabPage page = new TabPage("Server #" + tabNumber);
+            userControl.Dock = DockStyle.Fill;
+            page.Controls.Add(userControl);
+            this.tabControl1.Controls.Add(page);
+            this.Update();
         }
     }
 }

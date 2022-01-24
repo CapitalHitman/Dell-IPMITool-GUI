@@ -9,23 +9,32 @@ using System.Drawing;
 using System.Net;
 using CliWrap;
 using CliWrap.Buffered;
+using System.Threading;
+using FormSerialisation;
 
 namespace Dell_IPMITool_GUI
 {
     static class Program
     {
-        
+        static Mutex mutex = new Mutex(false, "DellIPMITool GUI Seth Fremeau 2021");
 
         [STAThread]
         static void Main()
         {
+
+            //Stops multiple instances of the application from running at the same time.
+            if (!mutex.WaitOne(TimeSpan.FromSeconds(1), false))
+            {
+                MessageBox.Show("The application is already running!", "Error", MessageBoxButtons.OK);
+                return;
+            }
+
             File.WriteAllText("log.txt", String.Empty);
             log("Log cleared on application start");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             String ipmiPath = Properties.Settings.Default.ipmiPath;
             Debug.WriteLine(Properties.Settings.Default.ipmiPath);
-
             /// Used to sanitize application setting variables while testing(resets it to null).
             Properties.Settings.Default.ipmiPath = String.Empty;
             Properties.Settings.Default.ipmiip = String.Empty;
@@ -42,7 +51,9 @@ namespace Dell_IPMITool_GUI
             {
                 Application.Run(new Connector());
             }
-
+            Program.log(Application.StartupPath);
+            Application.Exit();
+            log("Application Exiting...");
         }
 
         public static void log(Object loggedObject)
