@@ -12,16 +12,18 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Dell_IPMITool_GUI
 {
     public partial class Connector : Form
     {
-        public static int tabNumber = 0;
         private string quickConnectIPString;
         private string quickConnectUsername;
         private string quickConnectPassword;
-        public static ArrayList tabGUID = new ArrayList();
+        public static List<TabPageUserControl> tabInstances = new List<TabPageUserControl>();
+        public static ArrayList fieldsSerialize = new ArrayList();
 
         [DllImport("user32")]
         private static extern bool HideCaret(IntPtr hWnd);
@@ -36,21 +38,12 @@ namespace Dell_IPMITool_GUI
 
         private void Connector_Load(object sender, EventArgs e)
         {
-
             bool tabsDirExists = Directory.Exists(Application.StartupPath + @"\tabs\");
             if (!tabsDirExists)
             {
                 Directory.CreateDirectory(Application.StartupPath + @"\tabs\");
             }
             string[] GUIDList = Directory.GetFiles(Application.StartupPath + @"\tabs\");
-            foreach (string tabGUID in GUIDList)
-            {
-                string GUIDPath = Path.Combine(Path.GetFileNameWithoutExtension(tabGUID));
-                Program.log(GUIDPath);
-                Guid processedGUID = Guid.Parse(GUIDPath);
-                Program.log(GUIDPath);
-                NewServerPage(processedGUID);
-            }
             NewServerPage();
             quickConnectTextbox.GotFocus += (s1, e1) => { HideCaret(quickConnectTextbox.Handle); };
         }
@@ -118,6 +111,10 @@ namespace Dell_IPMITool_GUI
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
             }
+            foreach(TabPageUserControl tabs in tabInstances)
+            {
+                Program.log(tabs);
+            }
         }
 
         private void newServerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -127,22 +124,25 @@ namespace Dell_IPMITool_GUI
 
         private void Connector_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //Serialize tab information to json on exit
+            foreach (TabPageUserControl tabs in tabInstances)
+            {
+                TabData loadTabData = new TabData(tabs.ipTextBox.Text, tabs.usernameTextBox.Text, tabs.passwordTextBox.Text);
+                fieldsSerialize.Add(loadTabData);
+                
+            }
+            string jsonString = JsonSerializer.Serialize(fieldsSerialize);
+            List<TabData> data = JsonSerializer.Deserialize<List<TabData>>(jsonString);
+            Program.log(data[0].username);
+            //Program.log(jsonString);
         }
 
         //Create tabs
-        public void NewServerPage(Guid GUID)
-        {
-            tabPageUserControl userControl = new tabPageUserControl(GUID);
-            TabPage page = new TabPage("Server #" + tabNumber);
-            userControl.Dock = DockStyle.Fill;
-            page.Controls.Add(userControl);
-            this.tabControl1.Controls.Add(page);
-            this.Update();
-        }
         public void NewServerPage()
         {
-            tabPageUserControl userControl = new tabPageUserControl();
-            TabPage page = new TabPage("Server #" + tabNumber);
+            TabPageUserControl userControl = new TabPageUserControl();
+            TabPage page = new TabPage("Server #");
+            tabInstances.Add(userControl);
             userControl.Dock = DockStyle.Fill;
             page.Controls.Add(userControl);
             this.tabControl1.Controls.Add(page);

@@ -11,17 +11,17 @@ using CliWrap;
 using CliWrap.Buffered;
 using System.Threading;
 using FormSerialisation;
+using System.Text;
+using System.Collections;
 
 namespace Dell_IPMITool_GUI
 {
     static class Program
     {
         static Mutex mutex = new Mutex(false, "DellIPMITool GUI Seth Fremeau 2021");
-
         [STAThread]
         static void Main()
         {
-
             //Stops multiple instances of the application from running at the same time.
             if (!mutex.WaitOne(TimeSpan.FromSeconds(1), false))
             {
@@ -32,6 +32,7 @@ namespace Dell_IPMITool_GUI
             File.WriteAllText("log.txt", String.Empty);
             log("Log cleared on application start");
             Application.EnableVisualStyles();
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.SetCompatibleTextRenderingDefault(false);
             String ipmiPath = Properties.Settings.Default.ipmiPath;
             Debug.WriteLine(Properties.Settings.Default.ipmiPath);
@@ -51,8 +52,7 @@ namespace Dell_IPMITool_GUI
             {
                 Application.Run(new Connector());
             }
-            Program.log(Application.StartupPath);
-            Application.Exit();
+
             log("Application Exiting...");
         }
 
