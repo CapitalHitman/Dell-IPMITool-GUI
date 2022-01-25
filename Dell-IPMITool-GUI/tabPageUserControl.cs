@@ -14,7 +14,7 @@ namespace Dell_IPMITool_GUI
 {
     public partial class tabPageUserControl : UserControl
     {
-        public static Guid InstanceID { get; private set; }
+        public Guid InstanceID { get; private set; }
         public tabPageUserControl(Guid GUID)
         {
             InstanceID = GUID;
@@ -49,7 +49,7 @@ namespace Dell_IPMITool_GUI
         
         private void tabPageUserControl_Leave(object sender, EventArgs e)
         {
-            Program.log("Form Closing");
+          //  Program.log("Form Closing");
             Program.log(InstanceID);
             FormSerialisor.Serialise(this, Application.StartupPath + @"\tabs\" + InstanceID + ".xml");
         }
