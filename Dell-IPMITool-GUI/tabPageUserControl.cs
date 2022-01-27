@@ -15,15 +15,24 @@ namespace Dell_IPMITool_GUI
 {
     public partial class TabPageUserControl : UserControl
     {
-        
+        public String localGUID;
+        public String tabIndex;
         public TabPageUserControl()
         {
             InitializeComponent();
         }
 
+        public TabPageUserControl(String guid, String tabNumber)
+        {
+            localGUID = guid;
+            tabIndex = tabNumber;
+            Program.log(Application.StartupPath + @"tabs\" + guid + ".xml");
+            InitializeComponent();
+        }
+
         private void tabPageUserControl_Load(object sender, EventArgs e)
         {
-
+            FormSerialisor.Deserialise(this, Application.StartupPath + @"tabs\" + localGUID + ".xml");
         }
 
         private void ipErrorTextBox_TextChanged(object sender, EventArgs e)

@@ -14,6 +14,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using FormSerialisation;
+using System.Xml;
 
 namespace Dell_IPMITool_GUI
 {
@@ -23,7 +25,7 @@ namespace Dell_IPMITool_GUI
         private string quickConnectUsername;
         private string quickConnectPassword;
         public static List<TabPageUserControl> tabInstances = new List<TabPageUserControl>();
-        public static ArrayList fieldsSerialize = new ArrayList();
+        public static ArrayList assignedGUIDS = new ArrayList();
 
         [DllImport("user32")]
         private static extern bool HideCaret(IntPtr hWnd);
@@ -43,8 +45,21 @@ namespace Dell_IPMITool_GUI
             {
                 Directory.CreateDirectory(Application.StartupPath + @"\tabs\");
             }
-            string[] GUIDList = Directory.GetFiles(Application.StartupPath + @"\tabs\");
-            NewServerPage();
+            
+            if (Directory.GetDirectories(Application.StartupPath + @"\tabs\").Length == 0 && Directory.GetFiles(Application.StartupPath + @"\tabs\").Length == 0)
+            {
+                NewServerTab();
+            }
+            else
+            {
+                string[] GUIDList = Directory.GetFiles(Application.StartupPath + @"tabs\", "*.xml").Select(Path.GetFileNameWithoutExtension).Select(p => p.Substring(0)).ToArray();
+                foreach(string guid in GUIDList)
+                {
+                    Program.log("Parsed GUID: " + guid);
+                    NewServerTab(guid);
+                    assignedGUIDS.Add(guid);
+                }
+            }
             quickConnectTextbox.GotFocus += (s1, e1) => { HideCaret(quickConnectTextbox.Handle); };
         }
 
@@ -111,42 +126,67 @@ namespace Dell_IPMITool_GUI
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
             }
-            foreach(TabPageUserControl tabs in tabInstances)
-            {
-                Program.log(tabs);
-            }
         }
 
         private void newServerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NewServerPage();
+            NewServerTab();
         }
 
         private void Connector_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //Serialize tab information to json on exit
             foreach (TabPageUserControl tabs in tabInstances)
             {
-                TabData loadTabData = new TabData(tabs.ipTextBox.Text, tabs.usernameTextBox.Text, tabs.passwordTextBox.Text);
-                fieldsSerialize.Add(loadTabData);
-                
+                if (assignedGUIDS.Contains(tabs.localGUID))
+                {
+                    FormSerialisor.Serialise(tabs, Application.StartupPath + @"tabs\" + tabs.localGUID + ".xml");
+                    xmlAddTabIndex(tabs.tabIndex, Application.StartupPath + @"tabs\" + tabs.localGUID + ".xml");
+                    Program.log(Application.StartupPath + @"tabs\" + tabs.localGUID + ".xml");
+                    Program.log("Saving Tab: " + tabs.localGUID);
+                }
+                else
+                {
+                    Guid newGUID = Guid.NewGuid();
+                    Program.log(Application.StartupPath + @"tabs\" + newGUID + ".xml");
+                    FormSerialisor.Serialise(tabs, Application.StartupPath + @"tabs\" + newGUID + ".xml");
+                    Program.log("Saving new tab: " + newGUID);
+                }
             }
-            string jsonString = JsonSerializer.Serialize(fieldsSerialize);
-            List<TabData> data = JsonSerializer.Deserialize<List<TabData>>(jsonString);
-            Program.log(data[0].username);
-            //Program.log(jsonString);
         }
 
         //Create tabs
-        public void NewServerPage()
+        public void NewServerTab()
         {
-            TabPageUserControl userControl = new TabPageUserControl();
-            TabPage page = new TabPage("Server #");
-            tabInstances.Add(userControl);
-            userControl.Dock = DockStyle.Fill;
-            page.Controls.Add(userControl);
+            TabPageUserControl tabUserControl = new TabPageUserControl();
+            int tabCount = tabInstances.Count + 1;
+            TabPage page = new TabPage("Server #" + tabCount);
+            tabInstances.Add(tabUserControl);
+            tabUserControl.Dock = DockStyle.Fill;
+            page.Controls.Add(tabUserControl);
             this.tabControl1.Controls.Add(page);
             this.Update();
+        }
+
+        public void NewServerTab(string guid)
+        {
+            int tabCount = tabInstances.Count + 1;
+            TabPageUserControl tabUserControl = new TabPageUserControl(guid, tabCount.ToString());
+            TabPage page = new TabPage("Server #" + tabCount);
+            tabInstances.Add(tabUserControl);
+            tabUserControl.Dock = DockStyle.Fill;
+            page.Controls.Add(tabUserControl);
+            this.tabControl1.Controls.Add(page);
+            this.Update();
+        }
+
+        public void xmlAddTabIndex(String tabIndex, String xmlPath)
+        {
+            var xmlDoc = new XmlDocument();
+            xmlDoc.Load(xmlPath);
+            XmlElement tabIndexElement = xmlDoc.CreateElement("tabIndex");
+            tabIndexElement.InnerText = tabIndex;
+            xmlDoc.DocumentElement.AppendChild(tabIndexElement);
+            xmlDoc.Save(xmlPath);
         }
     }
 }
