@@ -82,15 +82,23 @@ namespace FormSerialisation {
         xmlSerialisedForm.Load(XmlFileName);
         XmlNode topLevel = xmlSerialisedForm.ChildNodes[1];
         foreach (XmlNode n in topLevel.ChildNodes) {
-          SetControlProperties((Control)c, n);
+
+
         }
       }
     }
 
     private static void SetControlProperties(Control currentCtrl, XmlNode n) {
-      // get the control's name and type
+            // get the control's name and type
+            XmlElement element = n.ParentNode as XmlElement;
+            Program.log(element);
+            if (element==null || !element.HasAttribute("Name"))
+            {
+                return;
+            }
       string controlName = n.Attributes["Name"].Value;
       string controlType = n.Attributes["Type"].Value;
+
       // find the control
       Control[] ctrl = currentCtrl.Controls.Find(controlName, true);
       if (ctrl.Length == 0) {

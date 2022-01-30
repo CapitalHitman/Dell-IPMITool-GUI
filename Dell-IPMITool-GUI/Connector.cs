@@ -26,6 +26,7 @@ namespace Dell_IPMITool_GUI
         private string quickConnectPassword;
         public static List<TabPageUserControl> tabInstances = new List<TabPageUserControl>();
         public static ArrayList assignedGUIDS = new ArrayList();
+        public static List<KeyValuePair<int, string>> tabNumberRelation = new List<KeyValuePair<int, string>>();
 
         [DllImport("user32")]
         private static extern bool HideCaret(IntPtr hWnd);
@@ -48,7 +49,8 @@ namespace Dell_IPMITool_GUI
             
             if (Directory.GetDirectories(Application.StartupPath + @"\tabs\").Length == 0 && Directory.GetFiles(Application.StartupPath + @"\tabs\").Length == 0)
             {
-                NewServerTab();
+                Guid newGUID = Guid.NewGuid();
+                NewServerTab(newGUID.ToString(), 1);
             }
             else
             {
@@ -56,8 +58,38 @@ namespace Dell_IPMITool_GUI
                 foreach(string guid in GUIDList)
                 {
                     Program.log("Parsed GUID: " + guid);
-                    NewServerTab(guid);
+                    XmlAttributeCollection attributes;
+                    XmlDocument doc = new XmlDocument();
+                    Program.log(Application.StartupPath + @"tabs\" + guid + ".xml");
+                    doc.Load(Application.StartupPath + @"tabs\" + guid + ".xml");
+                    XmlNodeList node = doc.GetElementsByTagName("tabIndex");
+                    foreach(XmlNode n in node)
+                    {
+                        string tabIndexFromAttribute = n.Attributes["tabIndex"].Value;
+                        int tabIndex = Int16.Parse(tabIndexFromAttribute);
+                        tabNumberRelation.Add(new KeyValuePair<int, string>(tabIndex, guid));
+                        //NewServerTab(guid, tabIndex);
+                    }
+
+
+                    //NewServerTab();
                     assignedGUIDS.Add(guid);
+                }
+                Program.log("Unsorted Output:");
+                foreach (KeyValuePair<int,string> kvp in tabNumberRelation)
+                {
+                    Program.log(kvp.Key + " " + kvp.Value);
+                }
+                quickSort(tabNumberRelation);
+                Program.log("Sorted Output:");
+                foreach (KeyValuePair<int, string> kvp in tabNumberRelation)
+                {
+                    Program.log(kvp.Key + " " + kvp.Value);
+                }
+                foreach(KeyValuePair<int,string> kvp in tabNumberRelation)
+                {
+                    Program.log(kvp.Key + " " + kvp.Value);
+                    NewServerTab(kvp.Value, kvp.Key);
                 }
             }
             quickConnectTextbox.GotFocus += (s1, e1) => { HideCaret(quickConnectTextbox.Handle); };
@@ -130,36 +162,27 @@ namespace Dell_IPMITool_GUI
 
         private void newServerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NewServerTab();
+            Guid newGUID = Guid.NewGuid();
+            NewServerTab(newGUID.ToString() ,tabInstances.Count + 1);
         }
 
         private void Connector_FormClosing(object sender, FormClosingEventArgs e)
         {
             foreach (TabPageUserControl tabs in tabInstances)
             {
-                if (assignedGUIDS.Contains(tabs.localGUID))
-                {
                     FormSerialisor.Serialise(tabs, Application.StartupPath + @"tabs\" + tabs.localGUID + ".xml");
                     xmlAddTabIndex(tabs.tabIndex, Application.StartupPath + @"tabs\" + tabs.localGUID + ".xml");
                     Program.log(Application.StartupPath + @"tabs\" + tabs.localGUID + ".xml");
                     Program.log("Saving Tab: " + tabs.localGUID);
-                }
-                else
-                {
-                    Guid newGUID = Guid.NewGuid();
-                    Program.log(Application.StartupPath + @"tabs\" + newGUID + ".xml");
-                    FormSerialisor.Serialise(tabs, Application.StartupPath + @"tabs\" + newGUID + ".xml");
-                    Program.log("Saving new tab: " + newGUID);
-                }
+              
             }
         }
 
         //Create tabs
-        public void NewServerTab()
+        public void NewServerTab(string guid, int tabNumber)
         {
-            TabPageUserControl tabUserControl = new TabPageUserControl();
-            int tabCount = tabInstances.Count + 1;
-            TabPage page = new TabPage("Server #" + tabCount);
+            TabPageUserControl tabUserControl = new TabPageUserControl(guid, tabNumber);
+            TabPage page = new TabPage("Server #" + tabNumber);
             tabInstances.Add(tabUserControl);
             tabUserControl.Dock = DockStyle.Fill;
             page.Controls.Add(tabUserControl);
@@ -167,26 +190,67 @@ namespace Dell_IPMITool_GUI
             this.Update();
         }
 
-        public void NewServerTab(string guid)
+        public void xmlAddTabIndex(int tabIndex, String xmlPath)
         {
-            int tabCount = tabInstances.Count + 1;
-            TabPageUserControl tabUserControl = new TabPageUserControl(guid, tabCount.ToString());
-            TabPage page = new TabPage("Server #" + tabCount);
-            tabInstances.Add(tabUserControl);
-            tabUserControl.Dock = DockStyle.Fill;
-            page.Controls.Add(tabUserControl);
-            this.tabControl1.Controls.Add(page);
-            this.Update();
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(xmlPath);
+
+            XmlNode typeNode = doc.CreateElement("tabIndex");
+            XmlAttribute type = doc.CreateAttribute("Type");
+            XmlAttribute name = doc.CreateAttribute("tabIndex");
+            type.Value = "tabIndex";
+            name.Value = tabIndex.ToString();
+            typeNode.Attributes.Append(type);
+            typeNode.Attributes.Append(name);
+
+            doc.DocumentElement.AppendChild(typeNode);
+            doc.Save(xmlPath);
         }
 
-        public void xmlAddTabIndex(String tabIndex, String xmlPath)
+        private void Connector_Shown(object sender, EventArgs e)
         {
-            var xmlDoc = new XmlDocument();
-            xmlDoc.Load(xmlPath);
-            XmlElement tabIndexElement = xmlDoc.CreateElement("tabIndex");
-            tabIndexElement.InnerText = tabIndex;
-            xmlDoc.DocumentElement.AppendChild(tabIndexElement);
-            xmlDoc.Save(xmlPath);
+        
+        }
+        public static void quickSort(List<KeyValuePair<int,string>> l)
+        {
+            int pivot, right, left, i, j;
+            while (true)
+            {
+                pivot = l[(int)Math.Floor((double)l.Count / 2)].Key;
+                Program.log("Pivot: " + pivot);
+                i = 0;
+                left = l[i].Key;
+                Program.log("Left: " + left);
+                while (left < pivot)
+                {
+                    i++;
+                    left = l[i].Key;
+                }
+                j = l.Count - 1;
+                right = l[j].Key;
+                Program.log("Right: " + right);
+                while (right > pivot)
+                {
+                    j--;
+                    right = l[j].Key;
+                }
+                if (left == right)
+                {
+                    return;
+                }
+                else
+                {
+                    KeyValuePair<int, string> temp = l[j];
+                    l[j] = l[i];
+                    l[i] = temp;
+                    foreach (KeyValuePair<int, string> kvp in tabNumberRelation)
+                    {
+                        Program.log(kvp.Key + " " + kvp.Value);
+                    }
+                }
+
+            }
         }
     }
 }

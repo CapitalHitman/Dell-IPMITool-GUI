@@ -16,13 +16,14 @@ namespace Dell_IPMITool_GUI
     public partial class TabPageUserControl : UserControl
     {
         public String localGUID;
-        public String tabIndex;
-        public TabPageUserControl()
+        public int tabIndex;
+        public TabPageUserControl(int tabNumber)
         {
+            tabIndex = tabNumber;
             InitializeComponent();
         }
 
-        public TabPageUserControl(String guid, String tabNumber)
+        public TabPageUserControl(String guid, int tabNumber)
         {
             localGUID = guid;
             tabIndex = tabNumber;

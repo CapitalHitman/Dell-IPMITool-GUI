@@ -32,11 +32,13 @@ namespace Dell_IPMITool_GUI
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Connector));
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.ipQuickConnectTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveTabsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quickConnectIPText = new System.Windows.Forms.TextBox();
             this.usernameQuickConnectTextBox = new System.Windows.Forms.TextBox();
             this.passwordQuickConnectTextBox = new System.Windows.Forms.TextBox();
@@ -47,11 +49,9 @@ namespace Dell_IPMITool_GUI
             this.rememberLogin = new System.Windows.Forms.CheckBox();
             this.quickConnectTextbox = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.validationErrorBox = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.saveTabsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -61,11 +61,21 @@ namespace Dell_IPMITool_GUI
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Location = new System.Drawing.Point(0, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(631, 552);
+            this.tabControl1.TabIndex = 0;
+            // 
             // ipQuickConnectTextBox
             // 
-            this.ipQuickConnectTextBox.Location = new System.Drawing.Point(23, 168);
+            this.ipQuickConnectTextBox.Location = new System.Drawing.Point(23, 210);
+            this.ipQuickConnectTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ipQuickConnectTextBox.Name = "ipQuickConnectTextBox";
-            this.ipQuickConnectTextBox.Size = new System.Drawing.Size(294, 22);
+            this.ipQuickConnectTextBox.Size = new System.Drawing.Size(294, 27);
             this.ipQuickConnectTextBox.TabIndex = 0;
             this.ipQuickConnectTextBox.TextChanged += new System.EventHandler(this.ipTextBox_TextChanged);
             // 
@@ -102,34 +112,43 @@ namespace Dell_IPMITool_GUI
             // 
             this.newServerToolStripMenuItem.Image = global::Dell_IPMITool_GUI.Properties.Resources.server1;
             this.newServerToolStripMenuItem.Name = "newServerToolStripMenuItem";
-            this.newServerToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newServerToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
             this.newServerToolStripMenuItem.Text = "New Server";
             this.newServerToolStripMenuItem.Click += new System.EventHandler(this.newServerToolStripMenuItem_Click);
+            // 
+            // saveTabsToolStripMenuItem
+            // 
+            this.saveTabsToolStripMenuItem.Name = "saveTabsToolStripMenuItem";
+            this.saveTabsToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
+            this.saveTabsToolStripMenuItem.Text = "Save Tabs";
             // 
             // quickConnectIPText
             // 
             this.quickConnectIPText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.quickConnectIPText.Location = new System.Drawing.Point(23, 147);
+            this.quickConnectIPText.Location = new System.Drawing.Point(23, 184);
+            this.quickConnectIPText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.quickConnectIPText.Name = "quickConnectIPText";
             this.quickConnectIPText.ReadOnly = true;
-            this.quickConnectIPText.Size = new System.Drawing.Size(105, 15);
+            this.quickConnectIPText.Size = new System.Drawing.Size(105, 20);
             this.quickConnectIPText.TabIndex = 3;
             this.quickConnectIPText.TabStop = false;
             this.quickConnectIPText.Text = "IPMI IP Address:";
             // 
             // usernameQuickConnectTextBox
             // 
-            this.usernameQuickConnectTextBox.Location = new System.Drawing.Point(23, 217);
+            this.usernameQuickConnectTextBox.Location = new System.Drawing.Point(23, 271);
+            this.usernameQuickConnectTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.usernameQuickConnectTextBox.Name = "usernameQuickConnectTextBox";
-            this.usernameQuickConnectTextBox.Size = new System.Drawing.Size(294, 22);
+            this.usernameQuickConnectTextBox.Size = new System.Drawing.Size(294, 27);
             this.usernameQuickConnectTextBox.TabIndex = 4;
             this.usernameQuickConnectTextBox.TextChanged += new System.EventHandler(this.usernameTextBox_TextChanged);
             // 
             // passwordQuickConnectTextBox
             // 
-            this.passwordQuickConnectTextBox.Location = new System.Drawing.Point(23, 266);
+            this.passwordQuickConnectTextBox.Location = new System.Drawing.Point(23, 332);
+            this.passwordQuickConnectTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.passwordQuickConnectTextBox.Name = "passwordQuickConnectTextBox";
-            this.passwordQuickConnectTextBox.Size = new System.Drawing.Size(294, 22);
+            this.passwordQuickConnectTextBox.Size = new System.Drawing.Size(294, 27);
             this.passwordQuickConnectTextBox.TabIndex = 5;
             this.passwordQuickConnectTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
             this.passwordQuickConnectTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.passwordTextBox_KeyPress);
@@ -137,10 +156,11 @@ namespace Dell_IPMITool_GUI
             // quickConnectUsernameText
             // 
             this.quickConnectUsernameText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.quickConnectUsernameText.Location = new System.Drawing.Point(23, 196);
+            this.quickConnectUsernameText.Location = new System.Drawing.Point(23, 245);
+            this.quickConnectUsernameText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.quickConnectUsernameText.Name = "quickConnectUsernameText";
             this.quickConnectUsernameText.ReadOnly = true;
-            this.quickConnectUsernameText.Size = new System.Drawing.Size(114, 15);
+            this.quickConnectUsernameText.Size = new System.Drawing.Size(114, 20);
             this.quickConnectUsernameText.TabIndex = 6;
             this.quickConnectUsernameText.TabStop = false;
             this.quickConnectUsernameText.Text = "Username:";
@@ -148,19 +168,21 @@ namespace Dell_IPMITool_GUI
             // quicckConnectPasswordText
             // 
             this.quicckConnectPasswordText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.quicckConnectPasswordText.Location = new System.Drawing.Point(23, 245);
+            this.quicckConnectPasswordText.Location = new System.Drawing.Point(23, 306);
+            this.quicckConnectPasswordText.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.quicckConnectPasswordText.Name = "quicckConnectPasswordText";
             this.quicckConnectPasswordText.ReadOnly = true;
-            this.quicckConnectPasswordText.Size = new System.Drawing.Size(100, 15);
+            this.quicckConnectPasswordText.Size = new System.Drawing.Size(100, 20);
             this.quicckConnectPasswordText.TabIndex = 7;
             this.quicckConnectPasswordText.TabStop = false;
             this.quicckConnectPasswordText.Text = "Password:";
             // 
             // quickConnectConnectButton
             // 
-            this.quickConnectConnectButton.Location = new System.Drawing.Point(179, 398);
+            this.quickConnectConnectButton.Location = new System.Drawing.Point(179, 498);
+            this.quickConnectConnectButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.quickConnectConnectButton.Name = "quickConnectConnectButton";
-            this.quickConnectConnectButton.Size = new System.Drawing.Size(138, 35);
+            this.quickConnectConnectButton.Size = new System.Drawing.Size(138, 44);
             this.quickConnectConnectButton.TabIndex = 8;
             this.quickConnectConnectButton.Text = "Connect";
             this.quickConnectConnectButton.UseVisualStyleBackColor = true;
@@ -169,9 +191,10 @@ namespace Dell_IPMITool_GUI
             // quickConnectCloseButton
             // 
             this.quickConnectCloseButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.quickConnectCloseButton.Location = new System.Drawing.Point(23, 398);
+            this.quickConnectCloseButton.Location = new System.Drawing.Point(23, 498);
+            this.quickConnectCloseButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.quickConnectCloseButton.Name = "quickConnectCloseButton";
-            this.quickConnectCloseButton.Size = new System.Drawing.Size(138, 35);
+            this.quickConnectCloseButton.Size = new System.Drawing.Size(138, 44);
             this.quickConnectCloseButton.TabIndex = 9;
             this.quickConnectCloseButton.Text = "Close";
             this.quickConnectCloseButton.UseVisualStyleBackColor = true;
@@ -180,9 +203,10 @@ namespace Dell_IPMITool_GUI
             // rememberLogin
             // 
             this.rememberLogin.AutoSize = true;
-            this.rememberLogin.Location = new System.Drawing.Point(23, 294);
+            this.rememberLogin.Location = new System.Drawing.Point(23, 368);
+            this.rememberLogin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rememberLogin.Name = "rememberLogin";
-            this.rememberLogin.Size = new System.Drawing.Size(138, 21);
+            this.rememberLogin.Size = new System.Drawing.Size(145, 24);
             this.rememberLogin.TabIndex = 10;
             this.rememberLogin.Text = "Remember Login";
             this.rememberLogin.UseVisualStyleBackColor = true;
@@ -191,8 +215,9 @@ namespace Dell_IPMITool_GUI
             // 
             this.quickConnectTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.quickConnectTextbox.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.quickConnectTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.quickConnectTextbox.Location = new System.Drawing.Point(656, 5);
+            this.quickConnectTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.quickConnectTextbox.Location = new System.Drawing.Point(656, 6);
+            this.quickConnectTextbox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.quickConnectTextbox.Name = "quickConnectTextbox";
             this.quickConnectTextbox.ReadOnly = true;
             this.quickConnectTextbox.Size = new System.Drawing.Size(294, 20);
@@ -203,7 +228,8 @@ namespace Dell_IPMITool_GUI
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Location = new System.Drawing.Point(0, 31);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 39);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -223,24 +249,17 @@ namespace Dell_IPMITool_GUI
             this.splitContainer1.Panel2.Controls.Add(this.passwordQuickConnectTextBox);
             this.splitContainer1.Panel2.Controls.Add(this.quicckConnectPasswordText);
             this.splitContainer1.Panel2.Controls.Add(this.quickConnectUsernameText);
-            this.splitContainer1.Size = new System.Drawing.Size(981, 445);
+            this.splitContainer1.Size = new System.Drawing.Size(981, 556);
             this.splitContainer1.SplitterDistance = 629;
             this.splitContainer1.TabIndex = 13;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Location = new System.Drawing.Point(0, 3);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(631, 442);
-            this.tabControl1.TabIndex = 0;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::Dell_IPMITool_GUI.Properties.Resources.settings128;
-            this.pictureBox2.Location = new System.Drawing.Point(23, 3);
+            this.pictureBox2.Location = new System.Drawing.Point(23, 4);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(294, 129);
+            this.pictureBox2.Size = new System.Drawing.Size(294, 161);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
@@ -249,13 +268,14 @@ namespace Dell_IPMITool_GUI
             // 
             this.validationErrorBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.validationErrorBox.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.validationErrorBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.validationErrorBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point);
             this.validationErrorBox.ForeColor = System.Drawing.Color.Red;
-            this.validationErrorBox.Location = new System.Drawing.Point(23, 321);
+            this.validationErrorBox.Location = new System.Drawing.Point(23, 401);
+            this.validationErrorBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.validationErrorBox.Name = "validationErrorBox";
             this.validationErrorBox.ReadOnly = true;
             this.validationErrorBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.validationErrorBox.Size = new System.Drawing.Size(294, 71);
+            this.validationErrorBox.Size = new System.Drawing.Size(294, 89);
             this.validationErrorBox.TabIndex = 11;
             this.validationErrorBox.TabStop = false;
             this.validationErrorBox.Text = "";
@@ -271,29 +291,25 @@ namespace Dell_IPMITool_GUI
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // saveTabsToolStripMenuItem
-            // 
-            this.saveTabsToolStripMenuItem.Name = "saveTabsToolStripMenuItem";
-            this.saveTabsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.saveTabsToolStripMenuItem.Text = "Save Tabs";
-            // 
             // Connector
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.quickConnectCloseButton;
-            this.ClientSize = new System.Drawing.Size(981, 480);
+            this.ClientSize = new System.Drawing.Size(981, 600);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.quickConnectTextbox);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "Connector";
             this.Text = "Dell IPMITool GUI";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Connector_FormClosing);
             this.Load += new System.EventHandler(this.Connector_Load);
+            this.Shown += new System.EventHandler(this.Connector_Shown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
